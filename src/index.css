@@ -1,0 +1,232 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Montserrat:wght@300;500;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Cormorant Garamond", serif;
+  --font-sans: "Montserrat", sans-serif;
+}
+
+/* Custom Artistic Flair themes and utility animations */
+.glow-text {
+  text-shadow: 0 0 10px rgba(255, 182, 193, 0.4);
+}
+
+.glow-text-strong {
+  text-shadow: 0 0 15px rgba(255, 182, 193, 0.8), 0 0 30px rgba(255, 20, 147, 0.4);
+}
+
+/* Atmosphere backgrounds */
+.atmosphere {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, #3a1525 0%, transparent 70%),
+              radial-gradient(circle at 20% 80%, #1a1025 0%, transparent 40%),
+              radial-gradient(circle at 80% 20%, #15102a 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.stars {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(1px 1px at 20px 30px, #fff, rgba(0,0,0,0)),
+                    radial-gradient(1px 1px at 40px 70px, #fff, rgba(0,0,0,0)),
+                    radial-gradient(2px 2px at 50px 160px, #fff, rgba(0,0,0,0)),
+                    radial-gradient(1px 1px at 90px 40px, #fff, rgba(0,0,0,0)),
+                    radial-gradient(1px 1px at 130px 80px, #fff, rgba(0,0,0,0));
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+/* Glass Buttons */
+.glass-btn {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.3s ease;
+}
+
+.glass-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 182, 193, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Rhythmic romantic heartbeat pulse */
+@keyframes romanticPulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 4px rgba(244, 63, 94, 0.3));
+  }
+  14% {
+    transform: scale(1.18);
+    filter: drop-shadow(0 0 15px rgba(244, 63, 94, 0.8));
+  }
+  28% {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 6px rgba(244, 63, 94, 0.45));
+  }
+  42% {
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 18px rgba(244, 63, 94, 0.85));
+  }
+  70% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 4px rgba(244, 63, 94, 0.3));
+  }
+}
+
+.romantic-heart-pulse {
+  animation: romanticPulse 2.2s infinite ease-in-out;
+}
+
+/* Interactive 3D Envelope Transition */
+.envelope-3d-container {
+  perspective: 1200px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 320px;
+  height: 230px;
+}
+
+.envelope-wrapper {
+  position: relative;
+  width: 310px;
+  height: 210px;
+  background-color: #1c0832;
+  border-radius: 0 0 16px 16px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 35px rgba(219, 39, 119, 0.2);
+  border: 1px solid rgba(219, 39, 119, 0.3);
+  border-top: none;
+  cursor: pointer;
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.6s ease;
+  transform-style: preserve-3d;
+}
+
+.envelope-wrapper:hover {
+  transform: translateY(-10px) rotateX(6deg);
+  box-shadow: 0 35px 70px -10px rgba(0, 0, 0, 0.9), 0 0 50px rgba(219, 39, 119, 0.35);
+}
+
+.envelope-flap {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: calc(100% + 2px);
+  height: 0;
+  border-left: 156px solid transparent;
+  border-right: 156px solid transparent;
+  border-top: 112px solid #280a47;
+  filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.4));
+  transform-origin: top;
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), z-index 0s linear 0.3s;
+  z-index: 30;
+}
+
+.envelope-wrapper.open .envelope-flap {
+  transform: rotateX(180deg);
+  filter: none;
+  z-index: 10;
+}
+
+/* Wax Seal decoration at the tip of the flap */
+.envelope-seal {
+  position: absolute;
+  top: 96px;
+  left: 50%;
+  transform: translateX(-50%) translateZ(1px) scale(1);
+  width: 34px;
+  height: 34px;
+  background: radial-gradient(circle, #f43f5e 20%, #be123c 100%);
+  border: 1px solid rgba(255, 182, 193, 0.4);
+  border-radius: 50%;
+  box-shadow: 0 6px 12px rgba(190, 18, 60, 0.55), inset 0 2px 4px rgba(255, 255, 255, 0.5);
+  z-index: 35;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.envelope-wrapper.open .envelope-seal {
+  transform: translateX(-50%) translateY(90px) rotateX(180deg) scale(0.2);
+  opacity: 0;
+}
+
+.envelope-pocket {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #100422 0%, #17072a 100%);
+  border-radius: 0 0 15px 15px;
+  overflow: hidden;
+  z-index: 20;
+}
+
+.envelope-pocket::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(to top, rgba(219, 39, 119, 0.08) 0%, transparent 80%),
+    radial-gradient(ellipse at center, rgba(219, 39, 119, 0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* Diagonal side flaps of open pockets stylized with CSS gradients for flawless rendering */
+.envelope-pocket-sides {
+  position: absolute;
+  inset: 0;
+  z-index: 22;
+  pointer-events: none;
+  background: 
+    linear-gradient(35deg, #120325 45%, transparent 45.5%),
+    linear-gradient(-35deg, #120325 45%, transparent 45.5%);
+  background-size: 100% 100%;
+}
+
+.envelope-pocket-bottom {
+  position: absolute;
+  inset: 0;
+  z-index: 24;
+  pointer-events: none;
+  background: linear-gradient(to top, #16042a 44%, transparent 45%);
+}
+
+.envelope-letter {
+  position: absolute;
+  bottom: 12px;
+  left: 14px;
+  width: calc(100% - 28px);
+  height: calc(100% - 24px);
+  background: linear-gradient(180deg, rgba(32, 16, 56, 0.98) 0%, rgba(16, 6, 30, 0.98) 100%);
+  border: 1px solid rgba(219, 39, 119, 0.35);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* Staggered Slide UP: Waits 0.55s for the flap to fully flip back and clear the entrance path */
+  transition: transform 0.85s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.55s, box-shadow 0.85s ease 0.55s, opacity 0.5s ease;
+  z-index: 15;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+.envelope-wrapper.open .envelope-letter {
+  transform: translateY(-138px) scale(0.97) rotateZ(-2deg);
+  z-index: 25;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 25px rgba(219, 39, 119, 0.25);
+}
+
+

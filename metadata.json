@@ -1,0 +1,6 @@
+{
+  "name": "Món Quà Tình Yêu 20-10",
+  "description": "Website quà tặng người yêu ngày 20/10 với trái tim pha lê 3D tương tác huyền ảo, quỹ đạo vệ tinh và thư tình lãng mạn.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
