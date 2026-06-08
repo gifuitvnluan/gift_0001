@@ -4,7 +4,7 @@
  */
 
 import React, { useRef, useState, useEffect } from "react";
-// Removed lucide-react in favor of FontAwesome class icons as requested by user
+import { config } from "../config";
 
 interface AudioPlayerProps {
   isPlaying: boolean;
@@ -25,26 +25,7 @@ export default function AudioPlayer({ isPlaying, setIsPlaying }: AudioPlayerProp
   const [isMuted, setIsMuted] = useState(false);
   const [showPlaylist, setShowPlaylist] = useState(false);
 
-  const playlist: Track[] = [
-    {
-      title: "Tender Affection (Piano)",
-      artist: "Mixkit Instrumental",
-      url: "https://assets.mixkit.co/music/493/493.mp3",
-      durationMs: 97000,
-    },
-    {
-      title: "Beautiful Dream (Calm)",
-      artist: "Mixkit Cinematic",
-      url: "https://assets.mixkit.co/music/688/688.mp3",
-      durationMs: 123000,
-    },
-    {
-      title: "Love Is All Around",
-      artist: "Acoustic Melody",
-      url: "https://assets.mixkit.co/music/815/815.mp3",
-      durationMs: 132000,
-    },
-  ];
+  const playlist = config.playlist;
 
   useEffect(() => {
     if (audioRef.current) {

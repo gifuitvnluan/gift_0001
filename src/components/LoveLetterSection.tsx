@@ -4,8 +4,8 @@
  */
 
 import React, { useState, useEffect, useRef } from "react";
-// Icons loaded from external FontAwesome CDN as requested by developer
 import gsap from "gsap";
+import { config } from "../config";
 
 interface LoveLetterSectionProps {
   activeTab: "letter" | "memories" | "promises";
@@ -18,12 +18,7 @@ export default function LoveLetterSection({ activeTab, onNextScreen, isTourCompl
   const [letterState, setLetterState] = useState<"closed" | "opening" | "opened">("closed");
   
   // Typing simulation state
-  const letterParagraphs = [
-    "Hôm nay là Ngày Phụ nữ Việt Nam 20/10, một ngày đặc biệt để cả thế giới tôn vinh phái đẹp, nhưng với anh, ngày nào có Linh bên cạnh cũng đều là ngày lành ngọt ngào ngọt ngào nhất.",
-    "Từ khoảnh khắc em bước rạng ngời vào cuộc đời anh, tất cả những vụn vỡ sầu lặng cũ dường như lùi sâu vào dĩ vãng, nhường chỗ cho niềm tự hào, thắp sáng cả tâm hồn anh. Sự hiền hậu, thấu hiểu và nụ cười rạng rỡ của em chính là chốn bình lặng hoàn hảo nhất để anh luôn nương tựa tìm về sau những âu lo thường nhật của cuộc sống.",
-    "Anh đã tạo nên không gian 3D lấp lánh này đại diện cho tình yêu của anh dành cho em. Trái tim pha lê rực đỏ ở trung tâm luôn quay xung quanh những dũng cảm, lời hứa tốt đẹp nhất dành cho em. Dù dòng thời gian có đổi thay, dù vũ trụ xoay chuyển thế nào, tình cảm tròn đầy và khao khát chở che em trong anh vẫn mãi vững bền như khối pha lê ấy.",
-    "Chúc người yêu bé bỏng của anh đón chào một ngày 20/10 ngập tràn niềm tin, luôn rạng rõ như ngàn sao trời lấp lánh kia. Hãy nhớ rằng, trong bất kỳ hoàn cảnh nào, phía sau em sẽ luôn có vòng tay của anh vững chãi bảo vệ và yêu chiều em dạt dào nhất."
-  ];
+  const letterParagraphs = config.letter.paragraphs;
 
   const fullLetterBody = letterParagraphs.join("\n\n");
   const [typedLength, setTypedLength] = useState(0);
@@ -81,21 +76,9 @@ export default function LoveLetterSection({ activeTab, onNextScreen, isTourCompl
   const [promises, setPromises] = useState(() => {
     try {
       const saved = localStorage.getItem("love_applet_promises_v3");
-      return saved ? JSON.parse(saved) : [
-        { id: 1, text: "Luôn bảo vệ và yêu thương em vô điều kiện", locked: false },
-        { id: 2, text: "Luôn nhường nhịn và lắng nghe mọi tâm sự của em", locked: false },
-        { id: 3, text: "Nắm chặt tay em đi qua mọi giông bão cuộc đời", locked: false },
-        { id: 4, text: "Chăm sóc em mỗi khi mệt mỏi hay dỗi hờn", locked: false },
-        { id: 5, text: "Luôn dành cho em nụ cười ấm áp nhất mỗi ngày", locked: false },
-      ];
+      return saved ? JSON.parse(saved) : config.promises.map((p, i) => ({ id: i + 1, text: p.text, locked: false }));
     } catch (e) {
-      return [
-        { id: 1, text: "Luôn bảo vệ và yêu thương em vô điều kiện", locked: false },
-        { id: 2, text: "Luôn nhường nhịn và lắng nghe mọi tâm sự của em", locked: false },
-        { id: 3, text: "Nắm chặt tay em đi qua mọi giông bão cuộc đời", locked: false },
-        { id: 4, text: "Chăm sóc em mỗi khi mệt mỏi hay dỗi hờn", locked: false },
-        { id: 5, text: "Luôn dành cho em nụ cười ấm áp nhất mỗi ngày", locked: false },
-      ];
+      return config.promises.map((p, i) => ({ id: i + 1, text: p.text, locked: false }));
     }
   });
 
@@ -219,26 +202,12 @@ export default function LoveLetterSection({ activeTab, onNextScreen, isTourCompl
     triggerEmojiBurst("⚡");
   };
 
-  const defaultPolaroids = [
-    {
-      id: "def-photo-1",
-      url: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=650&auto=format&fit=crop",
-      caption: "Cầm tay anh đi khắp thế gian 💖",
-      date: "Ngày lành bên em"
-    },
-    {
-      id: "def-photo-2",
-      url: "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=650&auto=format&fit=crop",
-      caption: "Tự vai ấm bình lặng giữa ngàn mây trôi 🌸",
-      date: "Kỷ niệm êm đềm"
-    },
-    {
-      id: "def-photo-3",
-      url: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=650&auto=format&fit=crop",
-      caption: "Mỗi nụ cười của em là ánh sáng rạng rỡ ✨",
-      date: "Giờ khắc đáng nhớ"
-    }
-  ];
+  const defaultPolaroids = config.defaultImages.map((img, i) => ({
+    id: img.id || `def-photo-${i + 1}`,
+    url: img.url,
+    caption: img.caption,
+    date: img.date,
+  }));
 
   const allPolaroids = [...customPhotos, ...defaultPolaroids];
   const rotDegrees = ["-rotate-2", "rotate-1.5", "-rotate-1", "rotate-2.5", "-rotate-2.5", "rotate-1"];
@@ -258,26 +227,7 @@ export default function LoveLetterSection({ activeTab, onNextScreen, isTourCompl
     }, 2800);
   };
 
-  const memories = [
-    {
-      id: "mem-1",
-      title: "Khoảnh khắc đầu tiên 🌸",
-      desc: "Lần đầu tiên anh nhìn vào mắt em, thế gian xung quanh như ngừng lại. Nụ cười tinh anh tỏa hương sắc riêng biệt khiến tim anh khẽ rung động.",
-      tag: "First Date",
-    },
-    {
-      id: "mem-2",
-      title: "Nụ cười tỏa nắng ☀️",
-      desc: "Nụ cười của em là liều thuốc chữa lành tuyệt diệu nhất. Chỉ cần thấy em vui, mọi mệt mỏi tủi hờn của ngày dài trong anh đều tan biến.",
-      tag: "Sweet Smile",
-    },
-    {
-      id: "mem-3",
-      title: "Gió mây bình yên 🌅",
-      desc: "Cùng nắm tay dạo bước, đón hoàng hôn lắng buông nhuộm hồng bờ vai nhỏ. Những giây phút bình dị bên Linh luôn là báu vật vô giá anh gìn giữ.",
-      tag: "Sunset Memories",
-    },
-  ];
+  const memories = config.memories;
 
   return (
     <div className="w-full max-w-4xl mx-auto text-center relative z-20 px-4 min-h-[70vh] flex flex-col justify-center items-center py-4 animate-fade-in">
@@ -388,7 +338,7 @@ export default function LoveLetterSection({ activeTab, onNextScreen, isTourCompl
                   ref={containerRef}
                   className="p-6 md:p-10 font-sans leading-relaxed text-gray-200 text-sm md:text-base space-y-5 max-h-[460px] overflow-y-auto scrollbar-thin transition-all duration-300"
                 >
-                  <p className="text-pink-300 font-bold font-sans text-lg">Linh thương mến của anh ❤️,</p>
+                  <p className="text-pink-300 font-bold font-sans text-lg">{config.letter.greeting}</p>
                   
                   {displayedParagraphs.map((para, idx) => {
                     const isLast = idx === displayedParagraphs.length - 1;
@@ -402,12 +352,17 @@ export default function LoveLetterSection({ activeTab, onNextScreen, isTourCompl
                     );
                   })}
 
-                  {isTypingComplete && (
-                    <div className="text-pink-300 font-bold text-right pt-4 mt-6 border-t border-pink-500/5 animate-fade-in">
-                      Yêu Linh hơn ngàn vạn tinh cầu,<br />
-                      <span className="text-xs text-gray-400 font-mono font-normal">Chàng trai luôn bảo vệ em</span>
-                    </div>
-                  )}
+{isTypingComplete && (
+                     <div className="text-pink-300 font-bold text-right pt-4 mt-6 border-t border-pink-500/5 animate-fade-in">
+                       {config.letter.signoff.split('\n').map((line, idx) => (
+                         <React.Fragment key={idx}>
+                           {line}
+                           {idx === 0 && <br />}
+                         </React.Fragment>
+                       ))}
+                       <span className="text-xs text-gray-400 font-mono font-normal">Chàng trai luôn bảo vệ em</span>
+                     </div>
+                   )}
                 </div>
 
                 {/* Cute Interactive Reaction Buttons */}

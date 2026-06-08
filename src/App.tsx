@@ -8,8 +8,8 @@ import GlassHeart3D from "./components/GlassHeart3D";
 import AudioPlayer from "./components/AudioPlayer";
 import LoveLetterSection from "./components/LoveLetterSection";
 import FireworksCanvas from "./components/FireworksCanvas";
-// Lucide icons replaced with premium FontAwesome classes as requested by user
 import gsap from "gsap";
+import { config } from "./config";
 
 export default function App() {
   const [onboarded, setOnboarded] = useState(false);
@@ -51,10 +51,10 @@ export default function App() {
   };
 
   // Split name for GSAP stagger typing
-  const subtitleText = "Dành tặng cho Linh";
+  const subtitleText = config.subtitle;
   const subtitleChars = subtitleText.split("");
 
-  const tagText = "Chúc mừng Ngày Phụ nữ Việt Nam 20/10";
+  const tagText = config.tagline;
   const tagChars = tagText.split("");
 
   // GSAP: Animate letters when intro camera flies in and completes
@@ -182,35 +182,35 @@ export default function App() {
               <i className="fa-solid fa-heart text-2xl"></i>
             </div>
 
-            <h1 className="text-2xl md:text-3xl font-serif italic text-pink-100 glow-text font-light tracking-wide mb-2">
-              Thế Giới Tình Yêu
-            </h1>
-            <p className="text-[10px] text-pink-300/80 font-sans tracking-[0.2em] uppercase mb-5 font-semibold">Chào mừng Linh đặt chân tới</p>
-            
-            <p className="text-xs md:text-sm text-gray-300/85 leading-relaxed font-sans mb-8">
-              Anh đã thắp sáng hàng ngàn vì tinh tú và chế tác một khối tinh cầu pha lê tuyệt đẹp đón chờ em. Bật loa và bắt đầu hành trình nhé Linh thương mến của anh!
-            </p>
+<h1 className="text-2xl md:text-3xl font-serif italic text-pink-100 glow-text font-light tracking-wide mb-2">
+               {config.welcome.heading}
+             </h1>
+             <p className="text-[10px] text-pink-300/80 font-sans tracking-[0.2em] uppercase mb-5 font-semibold">{config.welcome.subheading}</p>
+             
+             <p className="text-xs md:text-sm text-gray-300/85 leading-relaxed font-sans mb-8">
+               {config.welcome.description}
+             </p>
 
-            <button
-              onClick={handleOnboardEnter}
-              className="group relative w-full py-3.5 px-6 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-400 hover:to-rose-400 text-white font-semibold flex items-center justify-center gap-2 shadow-lg shadow-pink-500/25 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
-              id="welcome-enter-btn"
-            >
-              <i className="fa-solid fa-volume-high text-xs group-hover:scale-115 transition-transform"></i>
-              <span>Thắp Sáng Món Quà ❤️</span>
-            </button>
+             <button
+               onClick={handleOnboardEnter}
+               className="group relative w-full py-3.5 px-6 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-400 hover:to-rose-400 text-white font-semibold flex items-center justify-center gap-2 shadow-lg shadow-pink-500/25 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer"
+               id="welcome-enter-btn"
+             >
+               <i className="fa-solid fa-volume-high text-xs group-hover:scale-115 transition-transform"></i>
+               <span>{config.welcome.buttonText}</span>
+             </button>
           </div>
         </div>
       )}
 
       {/* FLOATING HEADER */}
-      {onboarded && (
-        <>
-          <div className="fixed top-8 right-40 z-40 text-[10px] tracking-[0.3em] uppercase opacity-75 font-sans hidden lg:block select-none pointer-events-none text-right text-pink-100 glow-text">
-            Dành tặng cho Linh
-          </div>
-        </>
-      )}
+{onboarded && (
+         <>
+           <div className="fixed top-8 right-40 z-40 text-[10px] tracking-[0.3em] uppercase opacity-75 font-sans hidden lg:block select-none pointer-events-none text-right text-pink-100 glow-text">
+             {config.subtitle}
+           </div>
+         </>
+       )}
 
       {/* FLOAT MUSIC INSTANCE */}
       {onboarded && (

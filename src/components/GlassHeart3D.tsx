@@ -11,6 +11,7 @@ import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
 import gsap from "gsap";
 import { LoveOrbitConfig } from "../types";
+import { config } from "../config";
 
 interface GlassHeart3DProps {
   onIntroFinished: () => void;
@@ -37,49 +38,8 @@ export default function GlassHeart3D({
   // Track loaded state
   const [initFinished, setInitFinished] = useState(false);
 
-  // Configuration for spelling-out/satellite orbits
-  const orbits: LoveOrbitConfig[] = [
-    {
-      id: "orbit-1",
-      text: "❤️ LINH ❤️",
-      radius: 2.2,
-      speed: 0.8,
-      color: "#ff69b4",
-      tiltX: 12,
-      tiltZ: 8,
-      direction: 1,
-    },
-    {
-      id: "orbit-2",
-      text: "❤️ MY LOVE ❤️",
-      radius: 3.1,
-      speed: 0.6,
-      color: "#ff1493",
-      tiltX: -15,
-      tiltZ: -10,
-      direction: -1,
-    },
-    {
-      id: "orbit-3",
-      text: "❤️ 20-10 ❤️",
-      radius: 4.0,
-      speed: 0.45,
-      color: "#ff4d6d",
-      tiltX: 8,
-      tiltZ: -20,
-      direction: 1,
-    },
-    {
-      id: "orbit-4",
-      text: "❤️ FOREVER ❤️",
-      radius: 4.9,
-      speed: 0.35,
-      color: "#ff85a1",
-      tiltX: -22,
-      tiltZ: 15,
-      direction: -1,
-    },
-  ];
+// Configuration for spelling-out/satellite orbits
+  const orbits: LoveOrbitConfig[] = config.orbits;
 
   useEffect(() => {
     if (!canvasRef.current || !containerRef.current) return;
